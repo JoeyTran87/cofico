@@ -1,0 +1,36 @@
+import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r108/build/three.module.js';
+import {OrbitControls} from 'https://threejsfundamentals.org/threejs/resources/threejs/r108/examples/jsm/controls/OrbitControls.js';
+import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r108/examples/jsm/loaders/GLTFLoader.js';
+import {GUI} from 'https://threejsfundamentals.org/threejs/../3rdparty/dat.gui.module.js';
+
+function main() {
+
+    var scene = new THREE.Scene();//tạo scene
+    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );//tạo camera
+
+    var renderer = new THREE.WebGLRenderer();//tạo trình Giả lập WebGLRenderer
+    
+    renderer.setSize( 1280, 720 );
+
+    document.body.appendChild( renderer.domElement );//nhúng Yếu tố Dom của trình render vào Body
+
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+    var cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+
+    camera.position.z = 5;
+
+    var animate = function () {
+        requestAnimationFrame( animate );
+
+        cube.rotation.x += 0.005;
+        cube.rotation.y += 0.005;
+        cube.rotation.z += 0.005;
+
+        renderer.render( scene, camera );
+    };
+
+    animate();1
+}
+main();
