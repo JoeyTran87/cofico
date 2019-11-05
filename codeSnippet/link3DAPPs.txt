@@ -2,3 +2,4 @@ https://joeytran87.github.io/cofico/COF_Scaffolding_Formwork_Column_101.html
 https://joeytran87.github.io/cofico/COF_SiteOffice_Container_40ft_101.html
 https://joeytran87.github.io/cofico/COF_Space_MeetingRoom.html
 https://joeytran87.github.io/cofico/COF_Scaffolding_Sequences_Wedgelock.html
+https://joeytran87.github.io/cofico/COF_SiteControl_NHA.html
