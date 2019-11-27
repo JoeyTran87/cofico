@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/7.4.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.4.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.4.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.4.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.4.0/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+    <style media="screen">
+      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      @media (max-width: 600px) {
+        body, #message { margin-top: 0; background: white; box-shadow: none; }
+        body { border-top: 16px solid #ffa100; }
+      }
+    </style>
+  </head>
+  <body>
+	<!––  no need 1  ––>
+	
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+        try {
+          let app = firebase.app();
+          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+        } catch (e) {
+          console.error(e);
+          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+        }
+      });
+	</script>
+
+	<header>
+		<h1>COFICO PANORAMA 360 APPLICATION</h1>
+		<p><trong>Support email: </trong>tvpduy@cofico.com.vn</p>
+		<p>Phone: 09 327 82 327</p>
+		<nav>
+			<ul>
+				<li><a href=".\panorama\index-AB1.html">A B Tower 1</a></li>
+				<li><a href=".\panorama\index-AB2.html">A B Tower 2</a></li>
+				<li><a href=".\panorama\index-AB3.html">A B Tower 3</a></li>
+				<li><a href=".\panorama\index-AB4.html">A B Tower 4</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-BM1.html">Bảo Minh Haus Neo 1</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-CAR1.html">Tân Sơn Nhất Carpark</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-CHG1.html">Cộng Hòa Garden 1 1</a></li>
+				<li><a href=".\panorama\index-CHG2.html">Cộng Hòa Garden 1 2</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-CRV1.html">Caravel Hotel 1</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-CV1.html">Caltavil 1</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-DAE1.html">Daewoo Hotel 1</a></li>
+				<li><a href=".\panorama\index-DAE1.html">Daewoo Hotel 2</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-EH21.html">Estella Height 2 1</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-GAT1.html">Gateway 1</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-INT1.html">Intercontiential 1</a></li>
+				<li><a href=".\panorama\index-INT2.html">Intercontiential 2</a></li>
+				<li><a href=".\panorama\index-INT3.html">Intercontiential 3</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-MAN1.html">Manulife 1</a></li>
+				<li><a href=".\panorama\index-MAN2.html">Manulife 2</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-NW1.html">New World hotel 1</a></li>
+				<li><a href=".\panorama\index-NW2.html">New World hotel 2</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-SAD1.html">Sadora 1</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-SGCC1.html">SGCC 1</a></li>
+				<li><a href=".\panorama\index-SGCC2.html">SGCC 2</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-SP1.html">Saigon Pearl 1</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-THVN1.html">Đài truyển hình Việt Nam 1</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-TU1.html">VP Thành Ủy 1</a></li>
+				<li><a href=".\panorama\index-TU2.html">VP Thành Ủy 2</a></li>
+				<p></p>
+				<li><a href=".\panorama\index-WS1.html">Waterina Suite 1</a></li>
+
+
+
+			</ul>
+		</nav>
+	</header>
+
+
+  </body>
+</html>

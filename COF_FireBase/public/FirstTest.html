@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>My first three.js app</title>
+		<style>
+			html, body {
+			margin: 0;
+			padding: 0;
+			}
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+  <body>
+    <canvas id="c"></canvas>   
+	<script src="js/three.js"></script>
+	<script type="module">
+		import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r108/build/three.module.js';
+		import {OrbitControls} from 'https://threejsfundamentals.org/threejs/resources/threejs/r108/examples/jsm/controls/OrbitControls.js';
+		import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r108/examples/jsm/loaders/GLTFLoader.js';
+		import {GUI} from 'https://threejsfundamentals.org/threejs/../3rdparty/dat.gui.module.js';
+		import {MapControls} from 'https://threejsfundamentals.org/threejs/resources/threejs/r108/examples/jsm/controls/OrbitControls.js';
+		import { ColladaLoader } from 'https://threejsfundamentals.org/threejs/resources/threejs/r108/examples/jsm/loaders/ColladaLoader.js';
+
+		//
+		var SCREEN_WIDTH = window.innerWidth;
+		var SCREEN_HEIGHT = window.innerHeight;
+		var aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+
+		var container, stats;
+		var camera, scene, renderer, mesh;
+		var cameraRig, activeCamera, activeHelper;
+		var cameraPerspective, cameraOrtho;
+		var cameraPerspectiveHelper, cameraOrthoHelper;
+		var frustumSize = 600;
+
+		//
+		scene = new THREE.Scene();//tạo scene		
+
+		//
+		const canvas = document.querySelector('#c');
+		renderer = new THREE.WebGLRenderer({canvas});
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );//nhúng Yếu tố Dom của trình render vào Body
+
+		//
+		var geometry = new THREE.BoxGeometry( 5, 3, 7 );
+		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+		material = new THREE.MeshPhongMaterial
+			ambient: 0x555555
+			color: 0x555555
+			specular: 0xffffff
+			shininess: 10
+			shading: THREE.SmoothShading
+
+		var cube = new THREE.Mesh( geometry, material );
+		scene.add( cube );
+
+		//			
+		var w = 960 *(SCREEN_WIDTH/1920)// tuong ung SCREEN_WIDTH = 1920
+		var h = 500 *(SCREEN_HEIGHT/1080)// tuong ung SCREEN_HEIGHT = 1080
+		var camAspect = w/h
+		var isoCamAspect = 3/1;
+		var D = 50
+		//cameraOrtho = new THREE.OrthographicCamera(-D*camAspect, D*camAspect, D, -D, -1000, 1000);
+		//cameraOrtho = new THREE.OrthographicCamera( -aspect*SCREEN_WIDTH, aspect*SCREEN_WIDTH, SCREEN_HEIGHT/2, SCREEN_HEIGHT/-2, 0.1, 1000 );		
+		//cameraOrtho = new THREE.OrthographicCamera( SCREEN_WIDTH/2, aspect*SCREEN_WIDTH, SCREEN_HEIGHT/2, SCREEN_HEIGHT/-2, 0.1, 1000 );						
+		//cameraOrtho.position.set(20, 20, 20);
+		//cameraOrtho.lookAt(scene.position);
+
+		//cameraOrtho.up = new THREE.Vector3(0, 1, 0);
+
+		var camLeft, camRight, camTop, camBot, camNear, camFar, camX, camY,camZ,cTarX,cTarY,cTarZ;
+		var tempRatio = 1;
+		camLeft = camRight = SCREEN_WIDTH*tempRatio/2;
+		camTop = camBot = SCREEN_HEIGHT*tempRatio/2;
+		camNear = 0.1;
+		camFar = 1000;
+
+		cameraOrtho = new THREE.OrthographicCamera(-camLeft, camRight, camTop, -camBot, camNear, camFar );						
+		camX = camY = camZ = 100;
+		cTarX = cTarY = cTarZ = 0;
+		cameraOrtho.position.set(camX, camY, camZ);
+		cameraOrtho.lookAt(new THREE.Vector3(cTarX , cTarY , cTarZ));
+
+		function updateSceneIsometric(root){
+			//update Camera
+			var box = new THREE.Box3().setFromObject(root);
+			var boxSizeL = box.getSize(new THREE.Vector3()).length();
+			//var boxSizeW = box.getSize(new THREE.Vector3()).width();
+			//var boxSizeH = box.getSize(new THREE.Vector3()).height();
+			var boxCenter = box.getCenter(new THREE.Vector3());				
+			tempRatio = 1.1;
+			camLeft = camRight = tempRatio*boxSizeL/2;
+			camTop = camBot = tempRatio*boxSizeL/2;
+
+			cameraOrtho.left = -camLeft;
+			cameraOrtho.right = camRight;
+			cameraOrtho.top = camTop;
+			cameraOrtho.bottom = -camBot;
+
+			camX = camY = camZ = 3 * boxSizeL;
+			cameraOrtho.position.set(camX, camY, camZ);
+			cameraOrtho.lookAt(boxCenter);
+			cameraOrtho.updateProjectionMatrix();
+
+			//update Light			
+
+		}
+		updateSceneIsometric(cube);
+
+
+		function resizeRendererToDisplaySize(renderer) {
+			const canvas = renderer.domElement;
+			const width = canvas.clientWidth;
+			const height = canvas.clientHeight;
+			const needResize = canvas.width !== width || canvas.height !== height;
+			if (needResize) {
+			renderer.setSize(width, height, false);
+			}
+			return needResize;
+		}
+		
+		/*
+		cameraOrthoHelper = new THREE.CameraHelper( cameraOrtho );		
+		scene.add( cameraOrthoHelper );*/
+		scene.add( cameraOrtho );
+
+
+		// create lights
+		scene.add( new THREE.AmbientLight(0x4000ff) );
+		var light = new THREE.PointLight(0xffffff, 6, 40);
+		light.position.set(30, 0, 30);
+		scene.add(light);
+
+		//
+		//const controls = new OrbitControls(cameraOrtho, canvas);
+		//controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
+		/*
+		controls.enableDamping = true;
+		controls.dampingFactor = 0.25;
+		controls.enableZoom = true;
+		controls.enableRotate = false;*/
+
+
+		console.log('X = ' + cameraOrtho.position.x +'; Y = '+cameraOrtho.position.y +'; Z = '+cameraOrtho.position.z );
+		console.log('Rot X = ' + cameraOrtho.rotation.x +'; Rot Y = '+cameraOrtho.rotation.y +'; Rot Z = '+cameraOrtho.rotation.z );
+		console.log('Cube X = ' + cube.position.x +'; Cube Y = '+cube.position.y +'; Cube Z = '+cube.position.z );
+		console.log('scene X = ' + scene.position.x +'; scene Y = '+scene.position.y +'; scene Z = '+scene.position.z );
+		console.log('aspect = ' + aspect +'; SCREEN_WIDTH = '+SCREEN_WIDTH +'; SCREEN_HEIGHT = '+SCREEN_HEIGHT );
+		console.log('CAM aspect = ' + cameraOrtho.aspect);
+		/*
+		var animate = function () {
+			requestAnimationFrame( animate );
+			
+			//cube.rotation.x += 0.005;
+			//cube.rotation.y += 0.005;
+			//cube.rotation.z += 0.005;
+			//cube.rotation.z = Math.PI/8;
+
+			cameraOrtho.updateProjectionMatrix();
+			cameraOrthoHelper.update();
+			cameraOrthoHelper.visible = true;
+
+			renderer.render( scene, cameraOrtho);
+		};
+
+		animate();*/
+
+		window.addEventListener( 'resize', onWindowResize, false );
+		//window.addEventListener( 'resize', resizeRendererToDisplaySize(renderer), false );
+
+		//
+		function onWindowResize() {
+			var newaspect = window.innerWidth / window.innerHeight;
+			renderer.setSize( window.innerWidth, window.innerHeight);
+			//cameraOrtho.aspect *= newaspect;
+			cameraOrtho.aspect = window.innerWidth / window.innerHeight;
+			cameraOrtho.updateProjectionMatrix();
+
+			/*
+			w = 960 *(SCREEN_WIDTH/1920)// tuong ung SCREEN_WIDTH = 1920
+			d = 500 *(SCREEN_HEIGHT/1080)// tuong ung SCREEN_HEIGHT = 1080
+			camAspect = width/height
+			D = 50
+			/*
+			cameraOrtho.left = -D*camAspect*aspect;
+			cameraOrtho.right = D*camAspect*aspect;
+			cameraOrtho.top = D*aspect;
+			cameraOrtho.bottom = -D*aspect;
+			*/
+		}
+
+		//
+		function render() {		
+				
+			renderer.render( scene, cameraOrtho);
+		}
+
+		console.log('CAM aspect = ' + cameraOrtho.aspect);
+		
+		render();
+		
+	</script>
+
+  </body>
+</html>

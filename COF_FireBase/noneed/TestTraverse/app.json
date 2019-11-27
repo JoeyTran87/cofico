@@ -1,0 +1,245 @@
+{
+	"metadata": {
+		"type": "App"
+	},
+	"project": {
+		"shadows": true,
+		"vr": false
+	},
+	"camera": {
+		"metadata": {
+			"version": 4.5,
+			"type": "Object",
+			"generator": "Object3D.toJSON"
+		},
+		"object": {
+			"uuid": "57201315-D8DD-49D7-BB9D-AD7CD8B487C7",
+			"type": "PerspectiveCamera",
+			"name": "Camera",
+			"layers": 1,
+			"matrix": [0.989335,0,0.145661,0,0.096134,0.751281,-0.652943,0,-0.109432,0.659982,0.743268,0,-1.33436,8.547465,9.063008,1],
+			"fov": 50,
+			"zoom": 1,
+			"near": 0.01,
+			"far": 1000,
+			"focus": 10,
+			"aspect": 1.228647,
+			"filmGauge": 35,
+			"filmOffset": 0
+		}
+	},
+	"scene": {
+		"metadata": {
+			"version": 4.5,
+			"type": "Object",
+			"generator": "Object3D.toJSON"
+		},
+		"geometries": [
+			{
+				"uuid": "D7E8F46E-C0A8-4386-9E46-1AC78C1EEA07",
+				"type": "PlaneBufferGeometry",
+				"width": 1,
+				"height": 1,
+				"widthSegments": 1,
+				"heightSegments": 1
+			},
+			{
+				"uuid": "B0F7D9D0-9410-4E81-99EB-77DCFECAE122",
+				"type": "BoxBufferGeometry",
+				"width": 1,
+				"height": 1,
+				"depth": 1,
+				"widthSegments": 1,
+				"heightSegments": 1,
+				"depthSegments": 1
+			},
+			{
+				"uuid": "E44B308A-6470-4BF5-8ED5-2798B8510CB1",
+				"type": "BoxBufferGeometry",
+				"width": 1,
+				"height": 1,
+				"depth": 1,
+				"widthSegments": 1,
+				"heightSegments": 1,
+				"depthSegments": 1
+			},
+			{
+				"uuid": "635D6910-40B7-4083-B9DA-D6EE62BD90DC",
+				"type": "BoxBufferGeometry",
+				"width": 1,
+				"height": 1,
+				"depth": 1,
+				"widthSegments": 1,
+				"heightSegments": 1,
+				"depthSegments": 1
+			}],
+		"materials": [
+			{
+				"uuid": "3E737D5F-13CF-4ED1-88E1-A56A5A905B96",
+				"type": "MeshStandardMaterial",
+				"color": 16777215,
+				"roughness": 0.5,
+				"metalness": 0.5,
+				"emissive": 0,
+				"depthFunc": 3,
+				"depthTest": true,
+				"depthWrite": true,
+				"stencilWrite": false,
+				"stencilWriteMask": 255,
+				"stencilFunc": 519,
+				"stencilRef": 0,
+				"stencilFuncMask": 255,
+				"stencilFail": 7680,
+				"stencilZFail": 7680,
+				"stencilZPass": 7680
+			},
+			{
+				"uuid": "0E75F179-6611-45E8-9700-409A9896A23E",
+				"type": "MeshStandardMaterial",
+				"color": 33023,
+				"roughness": 0.5,
+				"metalness": 0.5,
+				"emissive": 0,
+				"depthFunc": 3,
+				"depthTest": true,
+				"depthWrite": true,
+				"stencilWrite": false,
+				"stencilWriteMask": 255,
+				"stencilFunc": 519,
+				"stencilRef": 0,
+				"stencilFuncMask": 255,
+				"stencilFail": 7680,
+				"stencilZFail": 7680,
+				"stencilZPass": 7680
+			},
+			{
+				"uuid": "48FA5D0D-7694-4E87-9DA1-380443297422",
+				"type": "MeshStandardMaterial",
+				"color": 16744448,
+				"roughness": 0.5,
+				"metalness": 0.5,
+				"emissive": 0,
+				"depthFunc": 3,
+				"depthTest": true,
+				"depthWrite": true,
+				"stencilWrite": false,
+				"stencilWriteMask": 255,
+				"stencilFunc": 519,
+				"stencilRef": 0,
+				"stencilFuncMask": 255,
+				"stencilFail": 7680,
+				"stencilZFail": 7680,
+				"stencilZPass": 7680
+			},
+			{
+				"uuid": "B1BCE1A2-3B9E-456F-A851-FE794239FFB7",
+				"type": "MeshLambertMaterial",
+				"color": 16711680,
+				"emissive": 0,
+				"depthFunc": 3,
+				"depthTest": true,
+				"depthWrite": true,
+				"stencilWrite": false,
+				"stencilWriteMask": 255,
+				"stencilFunc": 519,
+				"stencilRef": 0,
+				"stencilFuncMask": 255,
+				"stencilFail": 7680,
+				"stencilZFail": 7680,
+				"stencilZPass": 7680
+			}],
+		"object": {
+			"uuid": "EECB7A44-00C5-4D88-A007-A13C7F48318B",
+			"type": "Scene",
+			"name": "Scene",
+			"layers": 1,
+			"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+			"children": [
+				{
+					"uuid": "3DC3DAEE-1733-4EFF-A8C4-45654EFFD93D",
+					"type": "PointLight",
+					"name": "PointLight",
+					"castShadow": true,
+					"layers": 1,
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-2.376237,2.098646,1.732399,1],
+					"color": 16777215,
+					"intensity": 1,
+					"distance": 0,
+					"decay": 1,
+					"shadow": {
+						"camera": {
+							"uuid": "48E8E97C-9F90-400E-A277-A8C339CC54D0",
+							"type": "PerspectiveCamera",
+							"layers": 1,
+							"fov": 90,
+							"zoom": 1,
+							"near": 0.5,
+							"far": 500,
+							"focus": 10,
+							"aspect": 1,
+							"filmGauge": 35,
+							"filmOffset": 0
+						}
+					}
+				},
+				{
+					"uuid": "51F6EAD5-FEBA-493C-B381-F350EA5E8A19",
+					"type": "Mesh",
+					"name": "Plane",
+					"receiveShadow": true,
+					"layers": 1,
+					"matrix": [10,0,0,0,0,0,-10,0,0,10,0,0,0,0,0,1],
+					"geometry": "D7E8F46E-C0A8-4386-9E46-1AC78C1EEA07",
+					"material": "3E737D5F-13CF-4ED1-88E1-A56A5A905B96"
+				},
+				{
+					"uuid": "9080FFF4-8870-44A4-AB70-39253C4B711F",
+					"type": "Group",
+					"name": "Group",
+					"layers": 1,
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+					"children": [
+						{
+							"uuid": "6BF81E91-68A6-4C9B-8461-5DA84DFA6014",
+							"type": "Mesh",
+							"name": "Box",
+							"layers": 1,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,-0.572591,0.230092,-1.194068,1],
+							"geometry": "B0F7D9D0-9410-4E81-99EB-77DCFECAE122",
+							"material": "0E75F179-6611-45E8-9700-409A9896A23E"
+						},
+						{
+							"uuid": "E1D5B3D6-2FD2-45E3-8CB0-9913D6999C1B",
+							"type": "Mesh",
+							"name": "Box",
+							"layers": 1,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,1.205178,0.506301,-1.332022,1],
+							"geometry": "E44B308A-6470-4BF5-8ED5-2798B8510CB1",
+							"material": "48FA5D0D-7694-4E87-9DA1-380443297422"
+						},
+						{
+							"uuid": "8FA1641B-317A-4A8B-B8F6-7DECF379E99D",
+							"type": "Mesh",
+							"name": "Box",
+							"layers": 1,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0.5,0,1],
+							"geometry": "635D6910-40B7-4083-B9DA-D6EE62BD90DC",
+							"material": "B1BCE1A2-3B9E-456F-A851-FE794239FFB7"
+						}]
+				}],
+			"background": 11184810
+		}
+	},
+	"scripts": {
+		"8FA1641B-317A-4A8B-B8F6-7DECF379E99D": [
+			{
+				"name": "color",
+				"source": "/*var oldcolor = new THREE.Color();\noldcolor = this.material.color;\nvar newMaterial = new THREE.MeshPhysicalMaterial();\nnewMaterial.color.set(oldcolor);\nthis.material = newMaterial;\nconsole.log(this.material);*/"
+			}],
+		"9080FFF4-8870-44A4-AB70-39253C4B711F": [
+			{
+				"name": "group",
+				"source": "//function update( event ) {}\nthis.traverse((child)=>{\n\tchild.castShadow = true;\n\tchild.receiveShadow = true;\n\tif (child.isMesh){\n\t\tshadow(child);\n\t}\n});\nconsole.log(this);\nfunction shadow(child){\n\tvar oldcolor = new THREE.Color();\n\toldcolor = child.material.color;\n\tvar newMaterial = new THREE.MeshPhysicalMaterial();\n\tnewMaterial.color.set(oldcolor);\n\tchild.material = newMaterial;\n\tconsole.log(child.material);\n}"
+			}]
+	}
+}
