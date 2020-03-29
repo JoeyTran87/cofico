@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>COFICO PROFILE 20</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/7.4.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.4.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.4.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.4.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.4.0/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <link rel = "stylesheet" type = "text/css" href = "styleProfile.css">
+  </head>
+  <body>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+        try {
+            let app = firebase.app();
+            let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+            document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+          } catch (e) {
+            console.error(e);
+            document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+          }
+        });
+    </script>
+    <!--https://www.youtube.com/watch?v=9Irz0c-6UGw-->
+
+    <div class="slidershow middle">
+
+      <div class="slides">
+        <input type="radio" name="r" id="r1" checked>
+        <input type="radio" name="r" id="r2">
+        <input type="radio" name="r" id="r3">
+        <input type="radio" name="r" id="r4">
+        <input type="radio" name="r" id="r5">
+        <input type="radio" name ="r" id="r5">
+        <input type="radio" name ="r" id="r6">
+        <input type="radio" name ="r" id="r7">
+        <input type="radio" name ="r" id="r8">
+        <input type="radio" name ="r" id="r9">
+        <input type="radio" name ="r" id="r10">
+        <input type="radio" name ="r" id="r11">
+        <input type="radio" name ="r" id="r12">
+        <input type="radio" name ="r" id="r13">
+        <input type="radio" name ="r" id="r14">
+        <input type="radio" name ="r" id="r15">
+        <input type="radio" name ="r" id="r16">
+        <input type="radio" name ="r" id="r17">
+        <input type="radio" name ="r" id="r18">
+        <input type="radio" name ="r" id="r19">
+        <input type="radio" name ="r" id="r10">
+        <input type="radio" name ="r" id="r11">
+        <input type="radio" name ="r" id="r12">
+        <input type="radio" name ="r" id="r13">
+        <input type="radio" name ="r" id="r14">
+        <input type="radio" name ="r" id="r15">
+        <input type="radio" name ="r" id="r16">
+        <input type="radio" name ="r" id="r17">
+        <input type="radio" name ="r" id="r18">
+        <input type="radio" name ="r" id="r19">
+        <input type="radio" name ="r" id="r21">
+        <input type="radio" name ="r" id="r22">
+        <input type="radio" name ="r" id="r23">
+        <input type="radio" name ="r" id="r24">
+        <input type="radio" name ="r" id="r25">
+        <input type="radio" name ="r" id="r26">
+        <input type="radio" name ="r" id="r27">
+        <input type="radio" name ="r" id="r28">
+        <input type="radio" name ="r" id="r29">
+        <input type="radio" name ="r" id="r30">
+        <input type="radio" name ="r" id="r31">
+        <input type="radio" name ="r" id="r32">
+        <input type="radio" name ="r" id="r33">
+        <input type="radio" name ="r" id="r34">
+        <input type="radio" name ="r" id="r35">
+        <input type="radio" name ="r" id="r36">
+        <input type="radio" name ="r" id="r37">
+        <input type="radio" name ="r" id="r38">
+        <input type="radio" name ="r" id="r39">
+        <input type="radio" name ="r" id="r40">
+        <input type="radio" name ="r" id="r41">
+        <input type="radio" name ="r" id="r42">
+        <input type="radio" name ="r" id="r43">
+        <input type="radio" name ="r" id="r44">
+        <input type="radio" name ="r" id="r45">
+        <input type="radio" name ="r" id="r46">
+        <input type="radio" name ="r" id="r47">
+        <input type="radio" name ="r" id="r48">
+        <input type="radio" name ="r" id="r49">
+        <input type="radio" name ="r" id="r50">
+        <input type="radio" name ="r" id="r51">
+        <input type="radio" name ="r" id="r52">
+        <input type="radio" name ="r" id="r53">
+        <input type="radio" name ="r" id="r54">
+        <input type="radio" name ="r" id="r55">
+        <input type="radio" name ="r" id="r56">
+        <input type="radio" name ="r" id="r57">
+        <input type="radio" name ="r" id="r58">
+        <input type="radio" name ="r" id="r59">
+        <input type="radio" name ="r" id="r60">
+        <input type="radio" name ="r" id="r61">
+        <input type="radio" name ="r" id="r62">
+        <input type="radio" name ="r" id="r63">
+        <input type="radio" name ="r" id="r64">
+        <input type="radio" name ="r" id="r65">
+        <input type="radio" name ="r" id="r66">
+        <input type="radio" name ="r" id="r67">
+        <input type="radio" name ="r" id="r68">
+        <input type="radio" name ="r" id="r69">
+        <input type="radio" name ="r" id="r70">
+        <input type="radio" name ="r" id="r71">
+        <input type="radio" name ="r" id="r72">
+
+        <div class = "slide s1"><img src=".\profile\20 (1).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (2).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (3).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (4).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (5).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (6).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (7).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (8).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (9).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (10).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (11).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (12).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (13).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (14).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (15).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (16).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (17).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (18).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (19).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (20).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (21).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (22).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (23).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (24).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (25).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (26).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (27).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (28).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (29).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (30).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (31).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (32).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (33).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (34).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (35).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (36).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (37).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (38).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (39).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (40).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (41).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (42).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (43).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (44).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (45).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (46).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (47).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (48).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (49).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (50).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (51).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (52).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (53).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (54).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (55).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (56).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (57).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (58).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (59).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (60).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (61).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (62).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (63).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (64).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (65).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (66).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (67).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (68).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (69).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (70).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (71).JPG" alt = ""></div>
+        <div class = "slide"><img src=".\profile\20 (72).JPG" alt = ""></div>
+      </div>
+
+      <div class="navigation">
+        <label for="r1" class="bar"></label>
+        <label for="r2" class="bar"></label>
+        <label for="r3" class="bar"></label>
+        <label for="r4" class="bar"></label>
+        <label for="r5" class="bar"></label>
+        <label for="r6" class="bar"></label>
+        <label for="r7" class="bar"></label>
+        <label for="r8" class="bar"></label>
+        <label for="r9" class="bar"></label>
+        <label for="r10" class="bar"></label>
+        <label for="r11" class="bar"></label>
+        <label for="r12" class="bar"></label>
+        <label for="r13" class="bar"></label>
+        <label for="r14" class="bar"></label>
+        <label for="r15" class="bar"></label>
+        <label for="r16" class="bar"></label>
+        <label for="r17" class="bar"></label>
+        <label for="r18" class="bar"></label>
+        <label for="r19" class="bar"></label>
+        <label for="r20" class="bar"></label>
+        <label for="r21" class="bar"></label>
+        <label for="r22" class="bar"></label>
+        <label for="r23" class="bar"></label>
+        <label for="r24" class="bar"></label>
+        <label for="r25" class="bar"></label>
+        <label for="r26" class="bar"></label>
+        <label for="r27" class="bar"></label>
+        <label for="r28" class="bar"></label>
+        <label for="r29" class="bar"></label>
+        <label for="r30" class="bar"></label>
+        <label for="r31" class="bar"></label>
+        <label for="r32" class="bar"></label>
+        <label for="r33" class="bar"></label>
+        <label for="r34" class="bar"></label>
+        <label for="r35" class="bar"></label>
+        <label for="r36" class="bar"></label>
+        
+      </div>
+      <div class="navigation2">
+        <label for="r37" class="bar"></label>
+        <label for="r38" class="bar"></label>
+        <label for="r39" class="bar"></label>
+        <label for="r40" class="bar"></label>
+        <label for="r41" class="bar"></label>
+        <label for="r42" class="bar"></label>
+        <label for="r43" class="bar"></label>
+        <label for="r44" class="bar"></label>
+        <label for="r45" class="bar"></label>
+        <label for="r46" class="bar"></label>
+        <label for="r47" class="bar"></label>
+        <label for="r48" class="bar"></label>
+        <label for="r49" class="bar"></label>
+        <label for="r50" class="bar"></label>
+        <label for="r51" class="bar"></label>
+        <label for="r52" class="bar"></label>
+        <label for="r53" class="bar"></label>
+        <label for="r54" class="bar"></label>
+        <label for="r55" class="bar"></label>
+        <label for="r56" class="bar"></label>
+        <label for="r57" class="bar"></label>
+        <label for="r58" class="bar"></label>
+        <label for="r59" class="bar"></label>
+        <label for="r60" class="bar"></label>
+        <label for="r61" class="bar"></label>
+        <label for="r62" class="bar"></label>
+        <label for="r63" class="bar"></label>
+        <label for="r64" class="bar"></label>
+        <label for="r65" class="bar"></label>
+        <label for="r66" class="bar"></label>
+        <label for="r67" class="bar"></label>
+        <label for="r68" class="bar"></label>
+        <label for="r69" class="bar"></label>
+        <label for="r70" class="bar"></label>
+        <label for="r71" class="bar"></label>
+        <label for="r72" class="bar"></label>
+      </div>
+    </div>
+
+  </body>
+</html>

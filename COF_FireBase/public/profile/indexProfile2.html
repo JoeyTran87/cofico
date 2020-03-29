@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>COFICO PROFILE 20</title>
+
+    <script defer src="/__/firebase/7.4.0/firebase-app.js"></script>
+    <script defer src="/__/firebase/7.4.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.4.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.4.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.4.0/firebase-storage.js"></script>
+    <script defer src="/__/firebase/init.js"></script>
+
+
+    <script type="text/javascript" src="Fader.js"></script> 
+    <link rel = "stylesheet" type = "text/css" href = "styleProfile2.css">
+  </head>
+  <body>
+    
+     <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+        try {
+            let app = firebase.app();
+            let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+            document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+          } catch (e) {
+            console.error(e);
+            document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+          }
+        });
+    </script>
+
+
+
+    <!--https://www.youtube.com/watch?v=sQuniQCzNlY-->
+    <div id = "slider">
+      <div id = "box">
+        <img src="20 (1).JPG" id = "fader">
+      </div>
+      <!--button-->
+      <button class = "prev" onclick="prevImage()" >-</button>
+      <button class = "next" onclick="nextImage()" >+</button>
+      <!--<button class = "auto" onclick="autoslide()">Auto</button>-->
+    </div>
+    
+    <script>
+      var slide_content = document.getElementById('box');
+      var image = range(1,72);
+      var i = 1;      
+      console.log(i);
+      var auto = 0; 
+
+      //function
+
+      function nextImage()
+      {
+        if (i < image.length)
+        {
+          i=i+1;  
+        }
+        else
+        {
+          i=1;          
+        } 
+        slide_content.innerHTML = "<img src=\"20 ("+i+").JPG\">";
+        
+      }
+
+      function prevImage(){        
+        if (i < image.length+1 && i>1){
+          i=i-1;
+        }
+        else{1
+          i=image.length;
+        }
+        slide_content.innerHTML = "<img src=\"20 ("+i+").JPG\">";        
+        //console.log("<img src=\"20 ("+image[i-1]+").JPG\">")
+        }
+
+      function range(start, end) {
+        var ans = [];
+        for (let i = start; i <= end; i++) {
+            ans.push(i);
+        }
+        return ans;      
+      }
+
+      let curImage = 0;
+
+      function rotateImage(){
+        let next = document.createElement('img');
+        next.onload = function(e){//wait for the image to load
+          document.getElementById('img_container').insertBefore(next, document.querySelector("#img_container img"));//insert new image before the previous (for stacking order)
+          $('#img_container img').eq(1).fadeOut(1500, function(){
+            $(this).detach();//remove the faded out img
+          });
+        };
+        next.src = images[curImage];
+        curImage = (curImage + 1) % images.length;
+      }
+
+      //setInterval(nextImage,2400);
+    </script>
+    
+  </body>
+</html>
