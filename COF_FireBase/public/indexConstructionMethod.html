@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Construction Methods Presenter</title>
+
+    <style media="screen">
+      body{
+        display: flex;
+        min-height: 100vh;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      #uploader{
+        -webkit-appearance: none;
+        appearance: none;
+        width: 50%;
+        margin-bottom: 10px;
+      }
+      img{
+        vertical-align:middle;
+      }
+    </style>
+  </head>
+  <body>
+    <progress value="0" max="100" id="uploader">0</progress>
+    <input type="file" value="upload" id="fileButton" multiple="" accept="image/*"/>
+    
+    <div class="option">
+      <br>
+      <input type="radio" name="r" id="ConstructionMethodsForTender" checked value="ConstructionMethodsForTender"><label for="ConstructionMethodsForTender">Construction Methods for Tender</label><br>  
+      <input type="radio" name="r" id="ConstructionMethodsForOnGoing" value="ConstructionMethodsForOnGoing"><label for="ConstructionMethodsForOnGoing">Construction Methods For On Going</label><br>  
+      <input type="radio" name="r" id="Other" value="Other"><label for="Other">Other</label><br>  
+    </div>
+    <img id="LogoCofico" src="https://firebasestorage.googleapis.com/v0/b/cofico-a4176.appspot.com/o/common%2FLOGO%20COFICO.svg?alt=media&token=b075dd1f-664d-40f6-9e44-dc8ee250af63" width="25%" height="25%">
+    <br>
+    <br>
+    <br>
+    <img id="CoficoCoreValue" src="https://firebasestorage.googleapis.com/v0/b/cofico-a4176.appspot.com/o/common%2FCORE%20VALUE.svg?alt=media&token=f7351659-e48d-4940-aae9-8ba1b63357ce" width="25%" height="25%">
+    <br>
+    <br>
+    <br>
+    <script src="/__/firebase/7.13.2/firebase-app.js"></script>
+    <script src="/__/firebase/7.13.2/firebase-analytics.js"></script>
+    <script src="/__/firebase/init.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    
+    <script src="./js/upload.js"></script>
+  </body>
+</html>
