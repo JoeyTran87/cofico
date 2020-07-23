@@ -66,8 +66,7 @@
                 const near = 0.1;
                 const far = 1000;
                 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-                camera.position.set(50, -50, 50);
-                
+                camera.position.set(50, -50, 50);                
                 */
 
                 //
@@ -87,6 +86,7 @@
                 //
                 // controls
                 //
+                /*
 				controls = new MapControls( camera, renderer.domElement );
 				controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
 				controls.enableDamping = false; // an animation loop is required when either damping or auto-rotation are enabled
@@ -97,7 +97,7 @@
                 controls.maxPolarAngle = Math.PI/2+Math.PI/10;
                 controls.keyPanSpeed = 3;
                 controls.update();
-
+                */
                 //ORBIT CONTROLLER
                 /*
                 controls = new OrbitControls(camera, canvas);            
