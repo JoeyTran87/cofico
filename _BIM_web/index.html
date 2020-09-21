@@ -10,13 +10,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TimelineMax.min.js"></script>
     <script src="../threejs/js/node_modules/three/build/three.js"></script>
-    <script type="module">
+    <script type="module">        
         
         //import * as THREE from '../threejs/js/node_modules/three/build/three.module.js';
         var scene = new THREE.Scene();
         //camera
         var camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,0.1,1000);   
-        camera.position.z = 5;
+        camera.position.z = 30;
 
         //renderer
         var renderer = new THREE.WebGLRenderer({antialias:true})
@@ -32,18 +32,32 @@
             camera.updateProjectionMatrix();
         })
 
+        //raycaster
+        var raycaster = new THREE.Raycaster();
+        var mouse = new THREE.Vector2();
+
         //geometry
         var geometry = new THREE.SphereGeometry(1,10,10);
         var material = new THREE.MeshLambertMaterial({color:0xFFCC00});
         var mesh = new THREE.Mesh(geometry,material);
-
+        
         //mesh.position.x = 0;
         //mesh.position.set(0,0,0);
         //mesh.rotation.set(45,0,0);
         //mesh.scale.set(1,2,1);
 
-        scene.add(mesh);
+        //scene.add(mesh);
 
+        var meshX = -10;
+        for (var i = 0; i < 15; i++){
+            var mesh = new THREE.Mesh(geometry, material);
+            mesh.position.x = (Math.random() - 0.5)*10;
+            mesh.position.y = (Math.random() - 0.5)*10;
+            mesh.position.z = (Math.random() - 0.5)*10;
+            scene.add(mesh);
+
+            meshX += 1;
+        }
         //ánh sáng
         var light = new THREE.PointLight(0xFFFFFF,1,500);
         light.position.set(10,0,25);
@@ -60,12 +74,53 @@
 
             renderer.render(scene,camera);
         }
-        render();
 
-        var tl = new TimelineMax().delay(0.3);
-        tl.to(mesh.scale,2,{y: 2, ease: Expo.easeOut})
-        tl.to(mesh.scale,2,{x: 0.5, ease: Expo.easeOut})
+        function onMouseMove(event){
+            //console.log((event.clientX / window.innerWidth) * 2 - 1);
+            //console.log(-(event.clientY / window.innerHeight) * 2 + 1);
+            event.preventDefault();
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            var intersects = raycaster.intersectObjects(scene.children, true);
+            
+            for (var i = 0; i< intersects.length; i++){
+
+                //console.log(intersects[i]);
+
+                // đổii màu đổi tượng
+                //var objectcolor =   intersects[i].object.material.color;
+                //console.log(objectcolor)
+                //intersects[i].object.material.color.set(0xff0000);
+                //animation
+                var tl = new TimelineMax().delay(0.3);
+                tl.to( intersects[i].object.scale,1,{x: 1.2, ease: Power4.easeOut}) //to là từ Thuong chuyên động tới mới, from là chuyen dong từ trang thai động về Bthuong
+                tl.to( intersects[i].object.scale,1,{y: 1.2, ease: Power4.easeOut},"-1") // -1 de lùi thời gian
+                tl.to( intersects[i].object.scale,.2,{x: 1, ease: Power4.easeOut}) //to là từ Thuong chuyên động tới mới, from là chuyen dong từ trang thai động về Bthuong
+                tl.to( intersects[i].object.scale,.1,{y: 1, ease: Power4.easeOut}) // -1 de lùi thời gian                
+                
+            }
+        }
+
+         
+        render();
+        /*
+        //var tl = new TimelineMax().delay(0.3);
+        var tl = new TimelineMax({paused: true}).delay(0.3);
+        tl.to(mesh.scale,1,{x: 1.2, ease: Power4.easeOut}) //to là từ Thuong chuyên động tới mới, from là chuyen dong từ trang thai động về Bthuong
+        tl.to(mesh.scale,1,{y: 1.2, ease: Power4.easeOut},"-1") // -1 de lùi thời gian
+        tl.to(mesh.scale,.2,{x: 1, ease: Power4.easeOut}) //to là từ Thuong chuyên động tới mới, from là chuyen dong từ trang thai động về Bthuong
+        tl.to(mesh.scale,.1,{y: 1, ease: Power4.easeOut}) // -1 de lùi thời gian
+        //tl.to(mesh.scale,2,{x: 0.5, ease: Expo.easeOut})
+        //tl.to(mesh.rotation,1,{y: Math.PI*3, ease: Expo.easeOut})
+        */
+        /*
+        document.body.addEventListener('click',() =>{
+            tl.play();
+        })*/
+
+        window.addEventListener('click',onMouseMove);// or click or mousemove
 
     </script>
 </body>
-</html>
+</html> 
