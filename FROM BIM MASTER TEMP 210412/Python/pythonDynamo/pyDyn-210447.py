@@ -190,20 +190,20 @@ def getCategoryByName(cateName,doc):
 #
 def getPropertiesDic(e,doc): # dictionary type for write JSON
 	dic = {}
-	if e:		
-		params = e.Parameters			
-		dic['UniqueId'] = e.UniqueId
-		if doc.GetElement(e.GetTypeId()):
-			dic['TypeUniqueId'] = doc.GetElement(e.GetTypeId()).UniqueId
-			# dic['TypeProperties'] = getTypePropertiesDic (e,doc)
-			tDic = getTypePropertiesDic (e,doc)
-			for td in tDic:
-				dic[td] = tDic.get(td)
-		else:
-			dic['TypeUniqueId'] = "NoneType"
-			dic['TypeProperties'] = "NoneTypeProperties"
-		for p in params:	
-			try:	
+	if e:
+		try:
+			params = e.Parameters			
+			dic['UniqueId'] = e.UniqueId
+			if doc.GetElement(e.GetTypeId()):
+				dic['TypeUniqueId'] = doc.GetElement(e.GetTypeId()).UniqueId
+				# dic['TypeProperties'] = getTypePropertiesDic (e,doc)
+				tDic = getTypePropertiesDic (e,doc)
+				for td in tDic:
+					dic[td] = tDic.get(td)
+			else:
+				dic['TypeUniqueId'] = "NoneType"
+				dic['TypeProperties'] = "NoneTypeProperties"
+			for p in params:		
 				if p.StorageType == StorageType.String:
 					if p.AsString():
 						v = p.AsString()
@@ -222,18 +222,9 @@ def getPropertiesDic(e,doc): # dictionary type for write JSON
 						if p.AsValueString():
 							v = p.AsValueString()								
 							n = p.Definition.Name
-							dic[n] = v	
-					if p.StorageType == StorageType.Integer:
-						if p.AsValueString():
-							v = p.AsValueString()								
-							n = p.Definition.Name
-							dic[n] = v
-						else:
-							v = p.AsInteger()								
-							n = p.Definition.Name
-							dic[n] = v
-			except:
-				pass
+							dic[n] = v		
+		except:
+			pass
 	return dic
 #
 #
@@ -241,36 +232,35 @@ def getTypePropertiesDic (e,doc): # dictionary type for write JSON
 	params = doc.GetElement(e.GetTypeId()).Parameters
 	dic = {}
 	#dic['TypeUniqueId'] = doc.GetElement(e.GetTypeId()).UniqueId
-	for p in params:	
-		try:	
+	for p in params:		
+		try:			
 			if p.StorageType == StorageType.String:
 				if p.AsString():
 					v = p.AsString()
+					
 					n = p.Definition.Name
 					dic[n] = v
-			else:
-				if p.StorageType == StorageType.Double:
-					if p.AsValueString():					
-						if p.DisplayUnitType == DisplayUnitType.DUT_DECIMAL_DEGREES or p.DisplayUnitType == DisplayUnitType.DUT_SLOPE_DEGREES:
-							v = float(p.AsDouble())						
-						else:
-							v = float(p.AsValueString())								
-						n = p.Definition.Name
-						dic[n] = v
-				if p.StorageType == StorageType.ElementId:
-					if p.AsValueString():
-						v = p.AsValueString()								
-						n = p.Definition.Name
-						dic[n] = v	
-				if p.StorageType == StorageType.Integer:
-					if p.AsValueString():
-						v = p.AsValueString()								
-						n = p.Definition.Name
-						dic[n] = v
+					pass			
+			
+			if p.StorageType == StorageType.Double:
+				if p.AsValueString():					
+					if p.DisplayUnitType == DisplayUnitType.DUT_DECIMAL_DEGREES or p.DisplayUnitType == DisplayUnitType.DUT_SLOPE_DEGREES:
+						v = float(p.AsDouble())
 					else:
-						v = p.AsInteger()								
-						n = p.Definition.Name
-						dic[n] = v
+						v = float(p.AsValueString())
+					
+					n = p.Definition.Name
+					dic[n] = v
+					pass
+			if p.StorageType == StorageType.ElementId:
+				if p.AsValueString():
+					v = p.AsValueString()					
+					n = p.Definition.Name
+					dic[n] = v
+					pass
+			if p.AsValueString():
+				v = p.AsValueString()		
+			
 		except:
 			pass
 	return dic

@@ -2,7 +2,7 @@
   "Uuid": "3c9d0464-8643-5ffe-96e5-ab1769818209",
   "IsCustomNode": false,
   "Description": "",
-  "Name": "08-EXTRACT-REVIT ELEMENT INFO TO JSON-210412",
+  "Name": "08-EXTRACT-REVIT ELEMENT INFO TO JSON-210502",
   "ElementResolver": {
     "ResolutionMap": {}
   },
@@ -11,37 +11,16 @@
       "Id": "7b7c8e1aeafe4a748c198fe3781c85c6",
       "Name": "List Category",
       "Type": "string",
-      "Value": "Structural Foundations\r\nStructural Framing\r\nStructural Columns\r\nWalls\r\nFloors\r\nStairs\r\nParts\r\nGeneric Models",
+      "Value": "Structural Foundations\r\nStructural Framing\r\nStructural Columns\r\nWalls\r\nFloors\r\nStairs\r\nParts\r\nGeneric Models\r\nCurtain Panels\r\nRoofs",
       "Description": "Creates a string."
     }
   ],
   "Outputs": [],
   "Nodes": [
     {
-      "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
-      "NodeType": "ExtensionNode",
-      "InstanceId": [
-        "55c61ae8-b8eb-4f87-b422-973c984b115d-00117834"
-      ],
-      "Id": "ef18cf7b140f4b36a1b666b381c37d32",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "2304ebed0c9d415e9edfb39d553b4dac",
-          "Name": "Element",
-          "Description": "The selected elements.",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled"
-    },
-    {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys,os,json,tempfile\r\nfrom shutil import copyfile\r\nfrom json import *\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\nclr.AddReference('RevitAPIUI')\r\nfrom Autodesk.Revit.UI import TaskDialog\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\nfrom System.Collections.Generic import *\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\n\r\n## add module director\r\ndynPyDir = \"\\\\\\\\hcmcfcfs01\\\\databim$\\\\BimESC\\\\00-BIM STANDARD\\\\PYTHON\\\\pythondynamo\"\r\nsys.path.append(dynPyDir)\r\nimport pyDyn\r\nfrom pyDyn import *\r\n##\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuiapp = DocumentManager.Instance.CurrentUIApplication\r\napp = uiapp.Application\r\n\r\nopt = Options()\r\ncategories = doc.Settings.Categories\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndataEnteringNode = IN\r\ne = UnwrapElement(IN[1]) # for TEST code\r\ncates = IN[0]\r\n\r\npath = revitDir(doc)[0]+revitDir(doc)[1]+'.json'\r\n\r\ndata = getAllCategoryElementsInfoDictionary(doc,cates)\r\ndataStr = jsonString(data)\r\n\r\nfileName = revitDir(doc)[1]+'.json'\r\n\r\ntempfilepath = getTempFilePath(fileName)\r\n\r\nfilepath = revitDir(doc)[0]+revitDir(doc)[1]+'.json'\r\n\r\nOUT = writeTxtStringToFile(tempfilepath,filepath,dataStr)",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport sys,os,json,tempfile\r\nfrom shutil import copyfile\r\nfrom json import *\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\nclr.AddReference('RevitAPIUI')\r\nfrom Autodesk.Revit.UI import TaskDialog\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\nfrom System.Collections.Generic import *\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\n\r\n## add module director\r\ndynPyDir = r\"C:\\Users\\USER\\Documents\\GitHub\\cofico\\cofico\\FROM BIM MASTER TEMP 210412\\Python\\pythonDynamo\"#r\"\\\\hcmcfcfs01\\databim$\\BimESC\\00-BIM STANDARD\\PYTHON\\pythondynamo\"\r\nsys.path.append(dynPyDir)\r\nimport pyDyn\r\nfrom pyDyn import *\r\n##\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuiapp = DocumentManager.Instance.CurrentUIApplication\r\napp = uiapp.Application\r\n\r\nopt = Options()\r\ncategories = doc.Settings.Categories\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndataEnteringNode = IN\r\ne = UnwrapElement(IN[1]) # for TEST code\r\ncates = IN[0]\r\n\r\npath = revitDir(doc)[0]+revitDir(doc)[1]+'.json'\r\n\r\ndata = getAllCategoryElementsInfoDictionary(doc,cates)\r\ndataStr = jsonString(data)\r\n\r\nfileName = revitDir(doc)[1]+'.json'\r\n\r\ntempfilepath = getTempFilePath(fileName)\r\n\r\nfilepath = revitDir(doc)[0]+revitDir(doc)[1]+'.json'\r\n\r\nOUT = writeTxtStringToFile(tempfilepath,filepath,dataStr)\r\n\r\n\"\"\"\r\ndata = getPropertiesDic(e,doc)\r\nOUT = \"Area\" in data,data\"\"\"\r\n",
       "VariableInputPorts": true,
       "Id": "cb1a12cd810e4d0f97bdd27538c34b8e",
       "Inputs": [
@@ -141,7 +120,7 @@
     {
       "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
       "NodeType": "StringInputNode",
-      "InputValue": "Structural Foundations\r\nStructural Framing\r\nStructural Columns\r\nWalls\r\nFloors\r\nStairs\r\nParts\r\nGeneric Models",
+      "InputValue": "Structural Foundations\r\nStructural Framing\r\nStructural Columns\r\nWalls\r\nFloors\r\nStairs\r\nParts\r\nGeneric Models\r\nCurtain Panels\r\nRoofs",
       "Id": "7b7c8e1aeafe4a748c198fe3781c85c6",
       "Inputs": [],
       "Outputs": [
@@ -159,76 +138,47 @@
       "Description": "Creates a string."
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Revit.Elements.Element.Parameters",
-      "Id": "b0b62e9cc5d74452942c549d4d23ea4e",
-      "Inputs": [
-        {
-          "Id": "fb12a7fc3b6441278525d1dc66b159c6",
-          "Name": "element",
-          "Description": "Revit.Elements.Element",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
+      "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "a7260faa-a96f-4e97-b39e-c3fc8430bf1f-0005b55a"
       ],
+      "Id": "71dde689cf9a4335accb9e1f25c0ce8a",
+      "Inputs": [],
       "Outputs": [
         {
-          "Id": "a4648c96a3dd40ecb24e7f020ed71660",
-          "Name": "Parameter[]",
-          "Description": "Parameter[]",
+          "Id": "66f7b737edef4f4f81f8fae4fa5891a4",
+          "Name": "Element",
+          "Description": "The selected elements.",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
         }
       ],
-      "Replication": "Auto",
-      "Description": "Obtain all of the Parameters from an Element, sorted by Name.\n\nElement.Parameters: Parameter[]"
+      "Replication": "Disabled"
     },
     {
-      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "ConcreteType": "Dynamo.Nodes.DSModelElementsSelection, DSRevitNodesUI",
       "NodeType": "ExtensionNode",
-      "Id": "8956e4afd38445979114e94c4749a81b",
-      "Inputs": [
-        {
-          "Id": "cce678a6a5174615a268f3656d1b96d3",
-          "Name": "",
-          "Description": "Node to evaluate.",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
+      "InstanceId": [],
+      "Id": "15fe684009514b59abead40ee63c7924",
+      "Inputs": [],
       "Outputs": [
         {
-          "Id": "2f9ccb3db4e6410cafc83b2b8555dfba",
-          "Name": "",
-          "Description": "Watch contents.",
+          "Id": "eb0b76121eae447ca8d7d2d80a4bebce",
+          "Name": "Elements",
+          "Description": "The selected elements.",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
         }
       ],
-      "Replication": "Disabled",
-      "Description": "Visualize the output of node."
+      "Replication": "Disabled"
     }
   ],
   "Connectors": [
-    {
-      "Start": "2304ebed0c9d415e9edfb39d553b4dac",
-      "End": "fb12a7fc3b6441278525d1dc66b159c6",
-      "Id": "512cdfbf7346497bb585b4fb17982554"
-    },
-    {
-      "Start": "2304ebed0c9d415e9edfb39d553b4dac",
-      "End": "959eef9590644f64964f27b417811555",
-      "Id": "48c0de1ecbbd4106a83cf29aa9bd62ab"
-    },
     {
       "Start": "611773d322564ef8a6ec94071a4f4f5c",
       "End": "5d473ccee19b42e1b8913f43ece6b0fc",
@@ -240,20 +190,19 @@
       "Id": "bae3c4c302294230b1b0f4a5a515bbba"
     },
     {
-      "Start": "a4648c96a3dd40ecb24e7f020ed71660",
-      "End": "cce678a6a5174615a268f3656d1b96d3",
-      "Id": "410f89564c2045dbb2b31dd512fe0668"
+      "Start": "66f7b737edef4f4f81f8fae4fa5891a4",
+      "End": "959eef9590644f64964f27b417811555",
+      "Id": "3033f5826b7948f6b5ea44da8d2d77ca"
     }
   ],
   "Dependencies": [],
-  "NodeLibraryDependencies": [],
   "Bindings": [],
   "View": {
     "Dynamo": {
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.3.0.5885",
+      "Version": "2.1.0.7500",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -270,16 +219,6 @@
       "UpZ": 0.0
     },
     "NodeViews": [
-      {
-        "ShowGeometry": true,
-        "Name": "Select Model Element",
-        "Id": "ef18cf7b140f4b36a1b666b381c37d32",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -154.16960703602581,
-        "Y": 159.79106325336434
-      },
       {
         "ShowGeometry": true,
         "Name": "Python Script- Write Element Properties",
@@ -322,23 +261,23 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "Element.Parameters",
-        "Id": "b0b62e9cc5d74452942c549d4d23ea4e",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": true,
-        "X": 94.0743716178331,
-        "Y": 122.25769883051741
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Watch",
-        "Id": "8956e4afd38445979114e94c4749a81b",
+        "Name": "Select Model Element",
+        "Id": "71dde689cf9a4335accb9e1f25c0ce8a",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 774.11027253068676,
-        "Y": 147.07844731695525
+        "X": -459.65970425205069,
+        "Y": 36.67111444682871
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Select Model Elements",
+        "Id": "15fe684009514b59abead40ee63c7924",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -486.44006294922212,
+        "Y": 169.78861937562579
       }
     ],
     "Annotations": [
@@ -352,7 +291,7 @@
         "Left": -421.86934774782145,
         "Top": 367.41729876657678,
         "Width": 185.36485200649525,
-        "Height": 323.3395955546996,
+        "Height": 355.3395955546996,
         "FontSize": 36.0,
         "InitialTop": 420.41729876657678,
         "InitialHeight": 234.3395955546996,
@@ -376,8 +315,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 212.01031052823183,
-    "Y": 12.059456937258233,
-    "Zoom": 0.71734846098091243
+    "X": 192.69255633031219,
+    "Y": -242.87662843216302,
+    "Zoom": 0.945306558554839
   }
 }
