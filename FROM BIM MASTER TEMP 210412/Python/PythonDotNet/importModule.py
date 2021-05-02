@@ -5,7 +5,7 @@ import clr
 clr.AddReference('System')
 import System
 
-pathRevitAPI = "C:\\Program Files\\Autodesk\\Revit 2020" #Revit API path
+pathRevitAPI = r"C:\Program Files\Autodesk\Revit 2020" #Revit API path
 sys.path.append(pathRevitAPI) # append Path for Add reference
 clr.AddReference('RevitAPI')
 # module1.sayHello()
