@@ -72,6 +72,12 @@ def writeTxtStringToFile(tempFP,path,exDat): #from txt string
 	copyfile(tempFP, path)	
 	return "Succeeded"
 #
+def writeTxtStringToFile2(path,exDat): #from txt string
+	with open(path,"w") as ff:
+		ff.write(exDat.encode('utf8'))
+	return "Succeeded"
+
+
 #
 def splitDynString(cates):	
 	newcats = []
@@ -383,6 +389,13 @@ def writeTxtFromExcelDat(exDat,_TAB,_BREAKLINE): #from excel data list
 
 #process JSON
 def readJson(path):	
+	res = []
+	with open(path,"r") as f:
+		for j in json.load(f):
+			res.append(j)
+	return res
+
+def readJsonYield(path):	
 	with open(path,"r") as f:
 		for j in json.load(f):
 			yield j
