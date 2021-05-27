@@ -3,6 +3,9 @@ from pyautocad import Autocad, ACAD, APoint
 from pyautocad.utils import timing
 
 acad = Autocad()
+
+def sayhello():
+    print('Hello')
 #acad.prompt("Hello, Autocad from Python\n")# phai mo Autocad va file len
 
 # p1 = APoint(0, 0)
@@ -22,8 +25,8 @@ acad = Autocad()
 #     print(obj.ObjectName)
 
 #check layer
-print("Current layer:",str(something.Layer))
-print("Current layer:",str(something.Linetype))
-print("Current layer:",str(something.LinetypeScale))
-print("Current layer:",str(something.Lineweight))
-print("Current layer:",str(something.Thickness))
+# print("Current layer:",str(something.Layer))
+# print("Current layer:",str(something.Linetype))
+# print("Current layer:",str(something.LinetypeScale))
+# print("Current layer:",str(something.Lineweight))
+# print("Current layer:",str(something.Thickness))

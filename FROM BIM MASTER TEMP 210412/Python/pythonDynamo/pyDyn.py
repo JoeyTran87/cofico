@@ -5,13 +5,17 @@ import clr
 import tempfile
 from shutil import copyfile
 
+dynPyDir = r"\\hcmcfcfs01\databim$\BimESC\00-BIM STANDARD\PYTHON\pythondynamo"
+sys.path.append(dynPyDir)
+revitDir = r"C:\Program Files\Autodesk\Revit 2020"
+sys.path.append(revitDir)
+revitDynamoDir1 = r"C:\Program Files\Autodesk\Revit 2020\AddIns\DynamoForRevit\Revit"
+revitDynamoDir2 = r"C:\Program Files\Autodesk\Revit 2020\AddIns\DynamoForRevit"
+sys.path.append(revitDynamoDir1)
+sys.path.append(revitDynamoDir2)
+
 clr.AddReference('ProtoGeometry')
 from Autodesk.DesignScript.Geometry import *
-
-# reload(sys)
-# sys.setdefaultencoding('utf8')
-
-# import numpy, re
 
 clr.AddReference('RevitAPI')
 from Autodesk.Revit.DB import *
@@ -23,6 +27,7 @@ clr.AddReference('RevitAPI')
 from Autodesk.Revit.DB import *
 clr.AddReference('RevitAPIUI')
 from Autodesk.Revit.UI import TaskDialog
+
 clr.AddReference("RevitNodes")
 import Revit
 clr.ImportExtensions(Revit.Elements)
@@ -37,11 +42,10 @@ import System.Windows.Forms
 from System.Windows.Forms import *
 import Autodesk.Revit.DB.JoinGeometryUtils as JGU
 
-## add module director
-dynPyDir = "\\\\hcmcfcfs01\\databim$\\BimESC\\00-BIM STANDARD\\PYTHON\\pythondynamo"
-sys.path.append(dynPyDir)
+
 import pyDyn
 from pyDyn import *
+
 #
 #
 #
@@ -242,6 +246,55 @@ def getPropertiesDic(e,doc): # dictionary type for write JSON
 				pass
 	return dic
 #
+def getPropertiesDic2(e,doc): # dictionary type for write JSON
+	dic = {}
+	if e:		
+		params = e.Parameters			
+		dic['UniqueId'] = e.UniqueId
+		dic['LocationType'] = checkLocation(e)
+		dic['LocationPoint'] = getLocationPoints2(e)
+		if doc.GetElement(e.GetTypeId()):
+			dic['TypeUniqueId'] = doc.GetElement(e.GetTypeId()).UniqueId
+			# dic['TypeProperties'] = getTypePropertiesDic (e,doc)
+			tDic = getTypePropertiesDic (e,doc)
+			for td in tDic:
+				dic[td] = tDic.get(td)
+		else:
+			dic['TypeUniqueId'] = "NoneType"
+			dic['TypeProperties'] = "NoneTypeProperties"
+		for p in params:	
+			try:	
+				if p.StorageType == StorageType.String:
+					if p.AsString():
+						v = p.AsString()
+						n = p.Definition.Name
+						dic[n] = v
+				else:
+					if p.StorageType == StorageType.Double:
+						if p.AsValueString():					
+							if p.DisplayUnitType == DisplayUnitType.DUT_DECIMAL_DEGREES or p.DisplayUnitType == DisplayUnitType.DUT_SLOPE_DEGREES:
+								v = float(p.AsDouble())
+							else:
+								v = float(p.AsValueString())								
+							n = p.Definition.Name
+							dic[n] = v
+					if p.StorageType == StorageType.ElementId:
+						if p.AsValueString():
+							v = p.AsValueString()								
+							n = p.Definition.Name
+							dic[n] = v	
+					if p.StorageType == StorageType.Integer:
+						if p.AsValueString():
+							v = p.AsValueString()								
+							n = p.Definition.Name
+							dic[n] = v
+						else:
+							v = p.AsInteger()								
+							n = p.Definition.Name
+							dic[n] = v
+			except:
+				pass
+	return dic
 #
 def getTypePropertiesDic (e,doc): # dictionary type for write JSON
 	params = doc.GetElement(e.GetTypeId()).Parameters
@@ -299,6 +352,16 @@ def getAllCategoryElementsInfoDictionaryYield(doc,cates):
 			yield getPropertiesDic(e,doc)
 		except:
 			pass
+
+def getAllCategoryElementsInfoDictionary2(doc,cates):
+	res = []
+	elems = getAllElementsOfCategories(splitDynString(cates),doc)
+	for e in elems:
+		try:
+			res.append(getPropertiesDic2(e,doc))
+		except:
+			pass
+	return res
 def writeParameterValueMulti(elems,paramName,value):
 	res = []
 	with Transaction(doc,"Write Paramater Value") as t:
@@ -415,7 +478,10 @@ def writeJsonFile(data,doc):
 		#dic = getPropertiesDic(e,doc)					
 		json.dumps(newData,f)
 	return newData
-
+def writeJson(path,data):
+	with open(path,'w',encoding="mbcs") as f:				
+		f.write(json.dumps(data))
+	return "Succeeded"
 
 def jsonString(data): # cho trường hợp bị lỗi JSON acsii encoder \u1111	
 	res = ""
@@ -687,8 +753,87 @@ def getLocationCurve(element):
 def getLocationCurves(elements):
 	curves = []
 	for element in elements:
-		curves.append(getLocationCurve(element))
+		try:
+			curves.append(getLocationCurve(element))
+		except:
+			pass
 	return curves
+
+def getLocation(elements):
+	curves = []
+	points = []
+	for element in elements:
+		try:
+			if element.Location.__class__ == LocationCurve:
+				curves.append(element.Location)
+			if element.Location.__class__ == LocationPoint:
+				points.append(element.Location)
+		except:
+			pass
+	return curves, points
+def getLocationPoints(elements):
+	curves = []
+	points = []
+	for element in elements:
+		try:
+			if element.Location.__class__ == LocationCurve:
+				c = element.Location
+				p = []
+				p.append(c.Curve.GetEndPoint(0))
+				p.append(c.Curve.GetEndPoint(1))
+				curves.append(p)
+			if element.Location.__class__ == LocationPoint:
+				points.append(element.Location.Point)
+		except:
+			pass
+	return curves, points
+def getLocationPoints1(element):
+	res = ""
+	try:
+		c = element.Location
+		if c.__class__ == LocationCurve:
+			res += str(c.Curve.GetEndPoint(0).X*304.8) +" "
+			res += str(c.Curve.GetEndPoint(0).Y*304.8) +" "
+			res += str(c.Curve.GetEndPoint(0).Z*304.8) +" "
+			res += str(c.Curve.GetEndPoint(1).X*304.8) +" "
+			res += str(c.Curve.GetEndPoint(1).Y*304.8) +" "
+			res += str(c.Curve.GetEndPoint(1).Z*304.8)
+		if c.__class__ == LocationPoint:
+			res += str(c.Point.X*304.8) +" "
+			res += str(c.Point.Y*304.8) +" "
+			res += str(c.Point.Z*304.8)
+	except:
+		pass
+	return res
+
+def getLocationPoints2(element): # lay Trung Diem - Mid point cua Location Curve
+	res = ""
+	try:
+		c = element.Location
+		if c.__class__ == LocationCurve:
+			res += str((c.Curve.GetEndPoint(0).X*304.8+c.Curve.GetEndPoint(1).X*304.8)/2) +" "
+			res += str((c.Curve.GetEndPoint(0).Y*304.8+c.Curve.GetEndPoint(1).Y*304.8)/2) +" "
+			res += str((c.Curve.GetEndPoint(0).Z*304.8+c.Curve.GetEndPoint(1).Z*304.8)/2)
+		if c.__class__ == LocationPoint:
+			res += str(c.Point.X*304.8) +" "
+			res += str(c.Point.Y*304.8) +" "
+			res += str(c.Point.Z*304.8)
+	except:
+		pass
+	return res
+
+def checkLocation(element):
+	res = None
+	try:
+		if element.Location.__class__ == LocationCurve:
+			res = "LocationCurve"
+		elif element.Location.__class__ == LocationPoint:
+			res = "LocationPoint"
+		else:
+			res = "Undefined"
+	except:
+		pass
+	return res
 #
 # solid
 def UnionSolid (solids):
@@ -990,3 +1135,77 @@ def setParameterUniqueId(doc,elements,paramName):
 		res.append(count)
 		sup.Commit()
 	return res
+
+def nearestDataPoint2(point,listPoints
+						,regionLabel
+						,levelLabel
+						,categoryLabel
+						,xLabel
+						,yLabel
+						,region
+						,level
+						,category
+						,translateLabel
+						,targetLabel
+						,targetFilterStartWith
+						,rotationLabel
+						,angleRound
+					):
+	#point is List of X, Y, Z						
+	x = point[0]
+	y = point[1]
+	listDist = []
+	newListPoints=[]
+	flag1 = flag2 = flag3 = flag4 = False
+	count = 0
+	startWiths = targetFilterStartWith.split(",")
+	
+	# eAngle = angleOfLine(point1, point2,angleRound)
+	for dp in listPoints:
+		try:
+			flag1 = region.lower() in dp.get(regionLabel).lower()
+			flag2 = level.lower() in dp.get(levelLabel).lower()
+			flag3 = category.lower() in dp.get(categoryLabel).lower()
+			for stw in startWiths:
+				if stw.lower() in dp.get(targetLabel).lower()[:len(stw)+1]:
+					flag4 = True
+			#flag4 = targetFilterStartWith.lower() in dp.get(targetLabel).lower()[:len(targetFilterStartWith)]
+			if flag1 and flag2 and flag3 and flag4:								
+				translate = dp.get(translateLabel)[1:-1].split(" ")
+				tX = float(translate[0])
+				tY = float(translate[1])
+				
+				dpX = float(dp.get(xLabel)) - tX
+				dpY = float(dp.get(yLabel)) - tY
+				
+				distance2P = distance(x,dpX,y,dpY)
+				listDist.append(distance2P)
+				newListPoints.append(dp)
+				flag1 = flag2 = flag3 = flag4 = False
+		except:
+			pass	
+	indexMin = len(listDist)
+	for i in range(len(listDist)):
+		if listDist[i] <= min(listDist):
+			indexMin = i	
+	#indexMin = i for i in range(len(listDist)) if listDist[i] <= min(listDist)
+	return newListPoints[indexMin]
+
+def distance(x1,x2,y1,y2):
+	return ((x1-x2)**2+(y1-y2)**2)**0.5
+
+def angleOfLine(point1, point2,angleRound):
+	x1 = point1[0]
+	y1 = point1[1]
+	x2 = point2[0]
+	y2 = point2[1]
+
+	deltaX = abs(x1-x2)
+	deltaY = abs(y1-y2)
+	distance = distance(x1,x2,y1,y2)
+
+	cos = deltaY/distance #tính tan
+	degree = round(math.degrees(math.acos(cos)),angleRound)
+	return degree
+
+
