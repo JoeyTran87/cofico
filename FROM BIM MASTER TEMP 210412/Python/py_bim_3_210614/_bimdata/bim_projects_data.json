@@ -1,0 +1,18 @@
+[
+    {   "ProjectNumber": "CHG",
+        "ProjectName": "Cộng Hòa Garden II",
+        "ProjectAddress": "",
+        "ProjectClient": "Cong Hoa Garden Investor",
+        "ProjectType": "Mixed Use Highrise",
+        "ProjectScale": "",
+        "ProjectDuration": ""
+    },
+    {   "ProjectNumber": "MARS",
+        "ProjectName": "Marubeni Solute",
+        "ProjectAddress": "",
+        "ProjectClient": "Marubeni",
+        "ProjectType": "Factory",
+        "ProjectScale": "",
+        "ProjectDuration": ""
+    }
+]
